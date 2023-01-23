@@ -1,0 +1,20 @@
+.people-list-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+  position: relative;
+  overflow: auto;
+}
+
+.people-list-page__card-person {
+  width: 30%;
+}
+
+.people-list-page__add-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}

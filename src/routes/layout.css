@@ -1,0 +1,13 @@
+.layout-page {
+  height: 100%;
+  width: 100%;
+}
+
+.layout-page__header {
+  height: 6rem;
+  margin-bottom: 1rem;
+}
+
+.layout-page__slot {
+  height: calc(100% - 6rem - 1rem);
+}
