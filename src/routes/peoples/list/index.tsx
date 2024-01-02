@@ -1,7 +1,7 @@
-import { $, component$, QRL, Resource, useResource$, useStore, useStylesScoped$ } from '@builder.io/qwik';
+import { $, component$, type QRL, Resource, useResource$, useStore, useStylesScoped$ } from '@builder.io/qwik';
 import { createPerson, removePerson, retrievePeople } from '~/core/providers/people.service';
 import { DialogPersonForm, MuiAddButton, MuiCircular, MuiPeopleCard } from '~/integrations/react/ui-react';
-import { Person, PersonForm } from '~/shared/models/person.model';
+import { type Person, type PersonForm } from '~/shared/models/person.model';
 
 import listStyle from './index.css?inline';
 
@@ -10,7 +10,7 @@ export function useListPeople() {
 
   const peopleResource = useResource$<Person[]>(() => retrievePeople().then(people => (peopleStore.people = people)));
 
-  const deletePerson = $((personId: string) => removePerson(personId!).then(people => (peopleStore.people = people)));
+  const deletePerson = $((personId: string | undefined) => removePerson(personId!).then(people => (peopleStore.people = people)));
 
   const addPerson = $((data: PersonForm) => createPerson(data).then(people => (peopleStore.people = people)));
 
@@ -21,7 +21,11 @@ export function useDialog<T>(callbackClosing: QRL<(data: T) => Promise<any>>) {
   const dialogStore = useStore({ isOpen: false });
 
   const closeDialog = $((data?: T) => {
-    Boolean(data) ? callbackClosing(data!).then(() => (dialogStore.isOpen = false)) : (dialogStore.isOpen = false);
+    data
+      ? callbackClosing(data!)
+          .then(() => (dialogStore.isOpen = false))
+          .catch(console.error)
+      : (dialogStore.isOpen = false);
   });
 
   return { dialogStore, closeDialog };
@@ -42,7 +46,7 @@ export default component$(() => {
           <>
             <article class="people-list-page">
               {peopleStore.people.map(person => (
-                <div class="people-list-page__card-person">
+                <div class="people-list-page__card-person" key={person.id}>
                   <MuiPeopleCard client:visible person={person} onDelete$={deletePerson} />
                 </div>
               ))}

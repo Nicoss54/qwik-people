@@ -1,4 +1,4 @@
-import { PersonForm } from '~/shared/models/person.model';
+import { type PersonForm } from '~/shared/models/person.model';
 import { deletePerson, getPeople, getPeopleRandom, postPerson } from '../data-providers/people-data.service';
 
 export const retrieveRandomPerson = () => getPeopleRandom();
