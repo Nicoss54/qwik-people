@@ -19,11 +19,12 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { Person, PersonForm } from '~/shared/models/person.model';
+import { type Person, type PersonForm } from '~/shared/models/person.model';
 
 interface PeopleCardProps {
   person: Person;
-  onDelete(personId: string): Promise<Person | Person[]>;
+
+  onDelete(personId?: string): Promise<Person | Person[]>;
 }
 
 interface IconButtonProps {
@@ -32,7 +33,9 @@ interface IconButtonProps {
 
 interface DialogProps {
   open: boolean;
+
   onClose(personForm?: PersonForm): any;
+
   personForm?: PersonForm;
 }
 
@@ -130,10 +133,7 @@ export const DialogPersonForm = qwikify$((props: DialogProps) => {
   );
 });
 
-export function PersonFormDialog(props: {
-  person?: PersonForm;
-  onPersonChange: (form: { valid: boolean; person: PersonForm }) => void;
-}) {
+export function PersonFormDialog(props: { person?: PersonForm; onPersonChange: (form: { valid: boolean; person: PersonForm }) => void }) {
   const { person, onPersonChange } = props;
   const form = useForm({
     defaultValues: {
@@ -154,13 +154,7 @@ export function PersonFormDialog(props: {
 
   return (
     <section style={{ display: 'flex', paddingTop: '1rem', boxSizing: 'border-box' }}>
-      <img
-        alt="photo of the person"
-        height="120"
-        width="120"
-        src={form.getValues('photo')}
-        style={{ borderRadius: '50%', marginRight: '1rem' }}
-      />
+      <img alt="photo of the person" height="120" width="120" src={form.getValues('photo')} style={{ borderRadius: '50%', marginRight: '1rem' }} />
       <FormProvider {...form}>
         <form style={{ display: 'flex', flexDirection: 'column', flex: 2, gap: '1rem' }}>
           <FormTextField name="firstname" rules={{ required: 'This field is required' }} label="First Name" />

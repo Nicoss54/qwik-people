@@ -36,6 +36,6 @@ li.header-people__menu__item.active {
   text-decoration-color: #ecb7d6;
 }
 
-li>a {
+li > a {
   all: unset;
 }

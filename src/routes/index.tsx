@@ -1,7 +1,7 @@
 import type { DocumentHead, RequestHandler } from '@builder.io/qwik-city';
 
-export const onGet: RequestHandler<void> = async ({ response }) => {
-  throw response.redirect('/peoples/random', 302);
+export const onGet: RequestHandler = async ({ redirect }) => {
+  throw redirect(302, '/peoples/random/');
 };
 
 export const head: DocumentHead = {

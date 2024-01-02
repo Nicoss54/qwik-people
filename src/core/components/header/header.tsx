@@ -1,27 +1,20 @@
 import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
-
+import ImgLogoSfeir from '~/media/logo-sfeir.svg?jsx';
 import headerStyle from './header.css?inline';
 
 export const Header = component$(() => {
-  useStylesScoped$(headerStyle);
   const location = useLocation();
+  useStylesScoped$(headerStyle);
   return (
     <header class="header-people">
-      <img
-        class="header-people__image"
-        alt="sfeir-logo"
-        height="120"
-        width="125"
-        src="/logo-sfeir.svg"
-      />
-
+      <ImgLogoSfeir style={{ width: '100px', height: '100px' }} />
       <ul role="list" class="header-people__menu">
         <li
           role="listitem"
           class={{
             'header-people__menu__item': true,
-            active: location.pathname === '/peoples/random/'
+            active: location.url.pathname === '/peoples/random/',
           }}
         >
           <a href="/peoples/random">Random</a>
@@ -30,7 +23,7 @@ export const Header = component$(() => {
           role="listitem"
           class={{
             'header-people__menu__item': true,
-            active: location.pathname === '/peoples/list/'
+            active: location.url.pathname === '/peoples/list/',
           }}
         >
           <a href="/peoples/list">List</a>

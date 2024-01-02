@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Person, PersonForm } from '~/shared/models/person.model';
+import { type Person, type PersonForm } from '~/shared/models/person.model';
 
 const BASE_URL = import.meta.env.VITE_SERVER;
 
